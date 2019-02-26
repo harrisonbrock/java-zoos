@@ -40,4 +40,10 @@ public class ZooController {
         List<Zoo> zoos = zooService.getAllZoos();
         return new ResponseEntity<>(zoos, HttpStatus.OK);
     }
+
+    @GetMapping("id/{id}")
+    public ResponseEntity<?> findZooById(@PathVariable long id) {
+        Zoo zoo = zooService.findZooById(id);
+        return new ResponseEntity<>(zoo, HttpStatus.OK);
+    }
 }

@@ -4,6 +4,8 @@ import com.harrisonbrock.zoomagment.domain.Zoo;
 import com.harrisonbrock.zoomagment.repositories.ZooRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ZooService {
 
@@ -13,8 +15,12 @@ public class ZooService {
         this.repository = repository;
     }
 
-    public Zoo addNewZoon(Zoo zoo) {
+    public Zoo addNewZoo(Zoo zoo) {
 
         return repository.save(zoo);
+    }
+
+    public List<Zoo> getAllZoos() {
+        return repository.findAll();
     }
 }

@@ -18,4 +18,10 @@ public class CustomResponseEntityExceptionHandler  extends ResponseEntityExcepti
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler
+    public final ResponseEntity<Object> handleZooNameException(ZooNameException ex, WebRequest request) {
+        ZooNameExceptionResponse exceptionResponse = new ZooNameExceptionResponse(ex.getMessage());
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
 }

@@ -2,6 +2,7 @@ package com.harrisonbrock.zoomagment.services;
 
 import com.harrisonbrock.zoomagment.domain.Zoo;
 import com.harrisonbrock.zoomagment.exceotions.ZooIdException;
+import com.harrisonbrock.zoomagment.exceotions.ZooNameException;
 import com.harrisonbrock.zoomagment.repositories.ZooRepository;
 import org.springframework.stereotype.Service;
 
@@ -36,4 +37,15 @@ public class ZooService {
             return zoo.get();
         }
     }
+
+    public Zoo findByZooName(String name) {
+        Optional<Zoo> zoo = repository.findZooByName(name);
+
+        if (zoo.isEmpty()) {
+            throw  new ZooNameException("Zoo Name '" + name + "' does not exit");
+        }
+        else {
+            return  zoo.get();
+        }
+     }
 }

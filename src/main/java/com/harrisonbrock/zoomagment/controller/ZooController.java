@@ -46,4 +46,10 @@ public class ZooController {
         Zoo zoo = zooService.findZooById(id);
         return new ResponseEntity<>(zoo, HttpStatus.OK);
     }
+
+    @GetMapping("/{name}")
+    public ResponseEntity<?> findZooByName(@PathVariable String name) {
+        Zoo zoo = zooService.findByZooName(name);
+        return new ResponseEntity<>(zoo, HttpStatus.OK);
+    }
 }

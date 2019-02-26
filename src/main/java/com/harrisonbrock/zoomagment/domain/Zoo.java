@@ -22,6 +22,7 @@ public class Zoo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JoinColumn(name = "zooId")
     private long id;
 
     @Column(name = "zooName")
@@ -36,7 +37,7 @@ public class Zoo {
     @JoinTable(
             name = "telephoneNumbers",
             joinColumns = {@JoinColumn(name = "zooId")},
-            inverseJoinColumns = {@JoinColumn(name = "zooId")})
+            inverseJoinColumns = {@JoinColumn(name = "phoneId")})
     @JsonIgnoreProperties("zoos")
     private Set<Animal> animals = new HashSet<>();
 

@@ -2,10 +2,7 @@ package com.harrisonbrock.zoomagment.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -15,6 +12,7 @@ import java.util.Set;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
 @Table(name = "zoos")
@@ -29,15 +27,21 @@ public class Zoo {
     @NotBlank
     private String name;
 
-    @OneToMany(mappedBy = "zoo")
-    @JsonIgnoreProperties("zoo")
+//    @OneToMany(mappedBy = "zoo")
+//    @JsonIgnoreProperties("zoo")
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "zoo_phone_number", joinColumns = @JoinColumn(name ="zooid"))
+    @AttributeOverrides({
+            @AttributeOverride(name = "phoneType", column = @Column(name = "phone_type")),
+            @AttributeOverride(name = "phoneNumber", column = @Column(name = "phone_number"))
+    })
     private Set<TelephoneNumber> telephoneNumbers = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
-            name = "telephoneNumbers",
+            name = "zoo_animals",
             joinColumns = {@JoinColumn(name = "zooId")},
-            inverseJoinColumns = {@JoinColumn(name = "phoneId")})
+            inverseJoinColumns = {@JoinColumn(name = "animalsId")})
     @JsonIgnoreProperties("zoos")
     private Set<Animal> animals = new HashSet<>();
 

@@ -9,18 +9,14 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-@Entity
-@Data
-@NoArgsConstructor
-@Setter
-@Getter
-@Table(name = "telephoneNumbers")
+
+@Embeddable
 public class TelephoneNumber {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "phoneId")
-    private long id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "phoneId")
+//    private long id;
 
     @NotBlank
     private String phoneType;
@@ -28,8 +24,32 @@ public class TelephoneNumber {
     @NotBlank
     private  String phoneNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "zooId")
-    @JsonIgnoreProperties("zoos")
-    private Zoo zoo;
+    public TelephoneNumber() {
+    }
+
+    public TelephoneNumber(@NotBlank String phoneType, @NotBlank String phoneNumber) {
+        this.phoneType = phoneType;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPhoneType() {
+        return phoneType;
+    }
+
+    public void setPhoneType(String phoneType) {
+        this.phoneType = phoneType;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    //    @ManyToOne
+//    @JoinColumn(name = "zooId")
+//    @JsonIgnoreProperties("zoos")
+//    private Zoo zoo;
 }
